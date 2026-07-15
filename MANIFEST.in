@@ -1,0 +1,3 @@
+include license.txt requirements.txt README.md
+recursive-include ai_assistant *.css *.js *.json *.py *.txt
+recursive-exclude ai_assistant *.pyc

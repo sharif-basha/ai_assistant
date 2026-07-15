@@ -1,0 +1,1 @@
+# No extra deps; reuses ai_insights (which uses requests).
