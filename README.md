@@ -1,36 +1,35 @@
 # AI Assistant
 
-A global AI assistant chat bubble on every Frappe **Desk** page. It answers
-general questions conversationally, and **auto-routes data questions** to the
-`ai_insights` app so they're answered from your ClickHouse warehouse (with SQL,
-table, and chart) - reusing ai_insights' Gemini key, model, and connection.
+A floating chat assistant available on every ERPNext Desk page. Answers general
+questions conversationally and routes data questions to `ai_insights`.
 
-## Features
-- Floating chat bubble (bottom-right) on every Desk page.
-- Auto-routing: general vs data questions, classified per message.
-- Data answers show the SQL, a data table, and follow-up chips.
-- Voice input (browser speech recognition) and data-conversation memory.
-- Answer-only (does not modify data).
+Built for RySS / APCNF to give staff a single in-Desk assistant for both
+general help and data queries.
 
-## Requirements
-- Frappe v15
-- The **ai_insights** app installed and configured (Gemini key + tables). This
-  app reuses those settings - it stores no keys of its own.
+**Version:** 1.0.0 · **Frappe:** v15 · **License:** MIT
+
+---
+
+## What it does
+
+- A **floating chat bubble** (bottom-right) injected on every Desk page.
+- **Auto-routing**: general questions go to Gemini conversationally; data
+  questions are routed to `ai_insights.api.insights.ask` (reusing its key, model
+  and ClickHouse connection).
+- **Voice input** and conversation memory; answer-only responses.
 
 ## Install
+
 ```bash
-bench get-app ai_assistant /path/to/ai_assistant
-bench --site your-site install-app ai_assistant
-bench --site your-site migrate
-bench build --app ai_assistant
-bench --site your-site clear-cache
+bench get-app ai_assistant https://github.com/sharif-basha/ai_assistant.git
+bench --site <sitename> install-app ai_assistant
 ```
-Then hard-refresh Desk; the 💬 bubble appears bottom-right.
+
+**Requires** the `ai_insights` app (for data-question routing and Gemini config).
 
 ## Notes
-- Routing uses a quick Gemini classification call, so each data question costs an
-  extra small call. Force a mode by asking plainly ("just chat: …").
-- Voice needs Chrome/Edge and microphone permission.
 
-## License
-MIT (c) 2026 RySS / Common Ground Initiative.
+- The endpoint is `ai_assistant.api.assistant.chat`.
+- A data question costs an extra Gemini call for classification (up to three
+  calls total: classify → SQL → interpret).
+- Styling is self-injected from JS so it does not depend on the desk CSS bundle.
