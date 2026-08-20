@@ -3,8 +3,7 @@
 A floating chat assistant available on every ERPNext Desk page. Answers general
 questions conversationally and routes data questions to `ai_insights`.
 
-Built for RySS / APCNF to give staff a single in-Desk assistant for both
-general help and data queries.
+
 
 **Version:** 1.0.0 · **Frappe:** v15 · **License:** MIT
 
